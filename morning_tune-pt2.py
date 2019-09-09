@@ -20,6 +20,17 @@ from keras.models import Model
 import json
 import os
 
+data= {}
+data['hyperparameters'] = []
+data['hyperparameters'].append({
+    'epochs' : config.EPOCHS,
+    'batch_size' : config.BATCH_SIZE,
+    'learning_rate' : config.LEARNING_RATE,
+    'momentum' : config.LEARNING_RATE,
+    'decay' : config.DECAY
+    })
+with open(config.PARAMS_FILE,'w') as write:
+    json.dump(data,write)
 # construct the training image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 	width_shift_range=0.2, height_shift_range=0.2, shear_range=0.15,
@@ -28,9 +39,6 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 # # load the RGB means for the training set
 means = json.loads(open(config.DATASET_MEAN).read())
 
-with open('hyperparameter_tracker.txt','a') as f:
-        var = str(config.BATCH_SIZE) +" | "+ str(config.LEARNING_RATE)
-        f.write(var)
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
 pp = PatchPreprocessor(config.RESIZE,config.RESIZE)
