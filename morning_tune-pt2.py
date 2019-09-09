@@ -66,7 +66,8 @@ baseModel = Xception(weights=None, include_top=False,
 headModel = FCHeadNet.build(baseModel, config.NUM_CLASSES,config.FCH1, config.FCH2)
 model = Model(inputs=baseModel.input, outputs=headModel)
 
-opt = Adam(lr= config.DECAY, decay =config.DECAY)
+#opt = Adam(lr= config.DECAY, decay =config.DECAY)
+opt = SGD(lr= config.DECAY, decay =config.DECAY)
 
 #for layer in baseModel.layers:
 #	layer.trainable = False
@@ -84,7 +85,7 @@ model.fit_generator(
 	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
 	validation_data=valGen.generator(),
 	validation_steps=valGen.numImages // config.BATCH_SIZE,
-        epochs=50,
+        epochs=config.EPOCHS,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
 ###########
