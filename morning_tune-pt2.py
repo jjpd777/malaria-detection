@@ -39,21 +39,19 @@ iap = ImageToArrayPreprocessor()
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
 	preprocessors=[pp,mp, iap], classes=2)
-print("checkpoint")
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp, mp, iap], classes=2)
-
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
+	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
+# load the pretrained network
 ########
 cp = CropPreprocessor(config.RESIZE,config.RESIZE)
 
 
-# load the pretrained network
 
 # initialize the testing dataset generator, then make predictions on
 # the testing data
-print("[INFO] predicting on test data (no crops)...")
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
-	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
+
 
 ########
 # initialize the optimizer
@@ -120,3 +118,4 @@ model.save("morning_tune-pt2.model", overwrite=True)
 # close the HDF5 datasets
 trainGen.close()
 valGen.close()
+testGen.close()

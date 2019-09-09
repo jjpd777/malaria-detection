@@ -2,28 +2,30 @@ import json
 # define the paths to the images directory
 IMAGES_PATH = "./clean_data/train/"
 
-RESIZE = 64 
+RESIZE = 64
 NUM_CLASSES = 2
 DATASET_MEAN = "./output/malaria_mean.json"
 
 EPOCHS = 50
-BATCH_SIZE = 64 
+BATCH_SIZE = 64
 LEARNING_RATE = 0.007
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
 ## IF FINE TUNING FCHEAD
-FCH1 = 512 
+FCH1 = 512
 FCH2 = 128
 
 TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
 VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
 TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
+
 PARAMS = "parameters.txt"
 
 EXPERIMENT_NAME = "./output/experiment-2/"
+CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
 PARAMS_FILE = EXPERIMENT_NAME + PARAMS
 MODEL_PATH = EXPERIMENT_NAME + "finetune.model"
-OUTPUT_PATH = EXPERIMENT_NAME 
+OUTPUT_PATH = EXPERIMENT_NAME
 
 def store_params():
     data= {}
@@ -40,5 +42,3 @@ def store_params():
         })
     with open(PARAMS_FILE,'w') as write:
         json.dump(data,write)
-
-
