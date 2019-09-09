@@ -61,15 +61,15 @@ print("[INFO] compiling model...")
 #opt = SGD(lr=0.0018,decay=decay)
 # model = AlexNet.build(width=config.RESIZE, height=config.RESIZE, depth=3,
 # 	classes=2, reg=0.00015)
-baseModel = Xception(weights="imagenet", include_top=False,
+baseModel = Xception(weights=None, include_top=False,
 	input_tensor=Input(shape=(config.RESIZE,config.RESIZE, 3)))
 headModel = FCHeadNet.build(baseModel, config.NUM_CLASSES,config.FCH1, config.FCH2)
 model = Model(inputs=baseModel.input, outputs=headModel)
 
 opt = Adam(lr= config.DECAY, decay =config.DECAY)
 
-for layer in baseModel.layers:
-	layer.trainable = False
+#for layer in baseModel.layers:
+#	layer.trainable = False
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
@@ -84,7 +84,7 @@ model.fit_generator(
 	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
 	validation_data=valGen.generator(),
 	validation_steps=valGen.numImages // config.BATCH_SIZE,
-        epochs=20,
+        epochs=50,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
 ###########
@@ -94,7 +94,7 @@ predictions = model.predict_generator(testGen.generator(),
 print("[INFO] rank-1: {:.2f}%".format(rank1 * 100))
 testGen.close()
 print("[INFO] serializing model...")
-model.save("./intermediary-pt2.model", overwrite=True)
+model.save(config.MODEL_PATH, overwrite=True)
 ###########
 testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
