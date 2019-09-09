@@ -4,6 +4,7 @@ matplotlib.use("Agg")
 from utils.ranked import rank5_accuracy
 # import the necessary packages
 from utils import config as config
+from utils.config import store_params
 from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
 from utils import PatchPreprocessor
@@ -20,17 +21,7 @@ from keras.models import Model
 import json
 import os
 
-data= {}
-data['hyperparameters'] = []
-data['hyperparameters'].append({
-    'epochs' : config.EPOCHS,
-    'batch_size' : config.BATCH_SIZE,
-    'learning_rate' : config.LEARNING_RATE,
-    'momentum' : config.LEARNING_RATE,
-    'decay' : config.DECAY
-    })
-with open(config.PARAMS_FILE,'w') as write:
-    json.dump(data,write)
+store_params()
 # construct the training image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 	width_shift_range=0.2, height_shift_range=0.2, shear_range=0.15,
@@ -71,8 +62,8 @@ print("[INFO] compiling model...")
 # model = AlexNet.build(width=config.RESIZE, height=config.RESIZE, depth=3,
 # 	classes=2, reg=0.00015)
 baseModel = Xception(weights="imagenet", include_top=False,
-	input_tensor=Input(shape=(350, 350, 3)))
-headModel = FCHeadNet.build(baseModel, config.NUM_CLASSES, 512)
+	input_tensor=Input(shape=(config.RESIZE,config.RESIZE, 3)))
+headModel = FCHeadNet.build(baseModel, config.NUM_CLASSES,config.FCH1, config.FCH2)
 model = Model(inputs=baseModel.input, outputs=headModel)
 
 opt = Adam(lr= config.DECAY, decay =config.DECAY)

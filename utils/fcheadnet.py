@@ -5,14 +5,14 @@ from keras.layers.core import Dense
 
 class FCHeadNet:
 	@staticmethod
-	def build(baseModel, classes, D):
+	def build(baseModel, classes,D1, D2):
 		# initialize the head model that will be placed on top of
 		# the base, then add a FC layer
 		headModel = baseModel.output
 		headModel = Flatten(name="flatten")(headModel)
-		headModel = Dense(128, activation="relu")(headModel)
+		headModel = Dense(D1, activation="relu")(headModel)
 		headModel = Dropout(0.5)(headModel)
-		headModel = Dense(64, activation="relu")(headModel)
+		headModel = Dense(D2, activation="relu")(headModel)
 		headModel = Dropout(0.5)(headModel)
 
 		# add a softmax layer
