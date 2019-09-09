@@ -76,7 +76,7 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 if args["model"] is None:
 	print("[INFO] compiling model...")
 	opt = SGD(lr=1e-1)
-	model = ResNet.build(32, 32, 3, 10, (9, 9, 9),
+	model = ResNet.build(config.RESIZE, config.RESIZE, 3, 10, (9, 9, 9),
 		(64, 64, 128, 256), reg=0.0005)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
@@ -111,7 +111,7 @@ model.fit_generator(
 	epochs=config.EPOCHS,
 	max_queue_size=10
 	callbacks=callbacks, verbose=1)
-	
+
 trainGen.close()
 valGen.close()
 testGen.close()
