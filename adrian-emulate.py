@@ -63,20 +63,18 @@ means = json.loads(open(config.DATASET_MEAN).read())
 
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
-pp = PatchPreprocessor(config.RESIZE,config.RESIZE)
-mp = MeanPreprocessor(means["R"], means["G"], means["B"])
-iap = ImageToArrayPreprocessor()
 
-aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
-	width_shift_range=0.2, height_shift_range=0.2, shear_range=0.15,
+aug = ImageDataGenerator(rescale= 1 / 255.0,rotation_range=20, zoom_range=0.05,
+	width_shift_range=0.05, height_shift_range=0.05, shear_range=0.05,
 	horizontal_flip=True, fill_mode="nearest")
+valaug = ImageDataGenerator(rescale= 1 / 255.0)
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
-	preprocessors=[pp,mp, iap], classes=2)
-valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
-	preprocessors=[sp, mp, iap], classes=2)
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
-	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
+	preprocessors=[sp], classes=2)
+valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
+	preprocessors=[sp], classes=2)
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,aug=valaug,
+	preprocessors=[sp], classes=config.NUM_CLASSES)
 # construct the image generator for data augmentation
 #
 

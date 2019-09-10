@@ -7,7 +7,7 @@ from .simplepreprocessor import SimplePreprocessor
 from .croppreprocessor import CropPreprocessor
 from .hdf5datasetgenerator import HDF5DatasetGenerator
 from .trainingmonitor import TrainingMonitor
-from .epochcheckpoint import EpochCheckPoint
+from .epochcheckpoint import EpochCheckpoint
 from .fcheadnet import FCHeadNet
 from .alexnet import AlexNet
 from .resnet import ResNet

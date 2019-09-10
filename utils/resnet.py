@@ -58,7 +58,7 @@ class ResNet:
 
 	@staticmethod
 	def build(width, height, depth, classes, stages, filters,
-		reg=0.0001, bnEps=2e-5, bnMom=0.9, dataset="cifar"):
+		reg=0.0001, bnEps=2e-5, bnMom=0.9):
 		# initialize the input shape to be "channels last" and the
 		# channels dimension itself
 		inputShape = (height, width, depth)
@@ -75,22 +75,16 @@ class ResNet:
 		x = BatchNormalization(axis=chanDim, epsilon=bnEps,
 			momentum=bnMom)(inputs)
 
-		# check if we are utilizing the CIFAR dataset
-		if dataset == "cifar":
-			# apply a single CONV layer
-			x = Conv2D(filters[0], (3, 3), use_bias=False,
-				padding="same", kernel_regularizer=l2(reg))(x)
 
 		# check to see if we are using the Tiny ImageNet dataset
-		elif dataset == "tiny_imagenet":
-			# apply CONV => BN => ACT => POOL to reduce spatial size
-			x = Conv2D(filters[0], (5, 5), use_bias=False,
-				padding="same", kernel_regularizer=l2(reg))(x)
-			x = BatchNormalization(axis=chanDim, epsilon=bnEps,
-				momentum=bnMom)(x)
-			x = Activation("relu")(x)
-			x = ZeroPadding2D((1, 1))(x)
-			x = MaxPooling2D((3, 3), strides=(2, 2))(x)
+		# apply CONV => BN => ACT => POOL to reduce spatial size
+		x = Conv2D(filters[0], (5, 5), use_bias=False,
+			padding="same", kernel_regularizer=l2(reg))(x)
+		x = BatchNormalization(axis=chanDim, epsilon=bnEps,
+			momentum=bnMom)(x)
+		x = Activation("relu")(x)
+		x = ZeroPadding2D((1, 1))(x)
+		x = MaxPooling2D((3, 3), strides=(2, 2))(x)
 
 		# loop over the number of stages
 		for i in range(0, len(stages)):
@@ -119,7 +113,6 @@ class ResNet:
 
 		# create the model
 		model = Model(inputs, x, name="resnet")
-		model.describe()
 
 		# return the constructed network architecture
 		return model

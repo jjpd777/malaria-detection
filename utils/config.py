@@ -8,7 +8,7 @@ DATASET_MEAN = "./output/malaria_mean.json"
 
 EPOCHS = 50
 BATCH_SIZE = 64
-LEARNING_RATE = 0.007
+LEARNING_RATE = 0.1
 MOMENTUM = 0
 DECAY = LEARNING_RATE/EPOCHS
 ## IF FINE TUNING FCHEAD
@@ -18,13 +18,13 @@ FCH2 = 128
 TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
 VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
 TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
-
+HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 PARAMS = "parameters.txt"
 
-EXPERIMENT_NAME = "./output/experiment-2/"
+EXPERIMENT_NAME = "./output/experiment-3/"
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
 PARAMS_FILE = EXPERIMENT_NAME + PARAMS
-MODEL_PATH = EXPERIMENT_NAME + "finetune.model"
+MODEL_PATH = EXPERIMENT_NAME + "resnet.model"
 OUTPUT_PATH = EXPERIMENT_NAME
 
 def store_params():
