@@ -1,28 +1,29 @@
 import json
-# define the paths to the images directory
 IMAGES_PATH = "./clean_data/train/"
+TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
+VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
+TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
+HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
 
 RESIZE = 64
+NUM_CHANNELS = 3
 NUM_CLASSES = 2
-DATASET_MEAN = "./output/malaria_mean.json"
+
 
 EPOCHS = 50
 BATCH_SIZE = 64
 LEARNING_RATE = 0.1
 MOMENTUM = 0
+NETWORK_REG = 0.0005
 DECAY = LEARNING_RATE/EPOCHS
-## IF FINE TUNING FCHEAD
-FCH1 = 512
-FCH2 = 128
-
-TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
-VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
-TEST_HDF5 = "./clean_data/hdf5/test.hdf5"
-HDF5_FILES = [TRAIN_HDF5,VAL_HDF5,TEST_HDF5]
-PARAMS = "parameters.txt"
+STAGES = (2,3,4)
+FILTERS = (128,64,128,256)
 
 EXPERIMENT_NAME = "./output/experiment-3/"
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
+MONITOR_PATH_PNG = EXPERIMENT_NAME + "monitor.png"
+MONITOR_PATH_JSON = EXPERIMENT_NAME + "monitor.json"
+PARAMS = "parameters.txt"
 PARAMS_FILE = EXPERIMENT_NAME + PARAMS
 MODEL_PATH = EXPERIMENT_NAME + "resnet.model"
 OUTPUT_PATH = EXPERIMENT_NAME
