@@ -73,8 +73,6 @@ trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
 	preprocessors=[sp], classes=2)
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
 	preprocessors=[sp], classes=2)
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,aug=valaug,
-	preprocessors=[sp], classes=config.NUM_CLASSES)
 # construct the image generator for data augmentation
 #
 
@@ -121,4 +119,3 @@ model.fit_generator(
 
 trainGen.close()
 valGen.close()
-testGen.close()
