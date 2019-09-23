@@ -39,4 +39,6 @@ predIdxs = np.argmax(predIdxs, axis=1)
  
 # show a nicely formatted classification report
 labels = list(testGen.db["labels"])
+print(labels[:50])
+print(predIdxs[:50])
 print(classification_report(labels, predIdxs))	

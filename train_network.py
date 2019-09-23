@@ -35,7 +35,7 @@ valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE, aug=valaug,
 
 if args["model"] is None:
 	print("[INFO] compiling model...")
-	opt = SGD(lr=config.LEARNING_RATE)
+	opt = SGD(lr=config.LEARNING_RATE,momentum=config.MOMENTUM)
 	model = ResNet.build(config.RESIZE, config.RESIZE, config.NUM_CHANNELS,
 	 config.NUM_CLASSES, config.STAGES,config.FILTERS, reg=config.NETWORK_REG)
 	model.compile(loss="categorical_crossentropy", optimizer=opt,
@@ -53,7 +53,7 @@ else:
 
 # construct the set of callbacks
 callbacks = [
-	EpochCheckpoint(config.CHECKPOINTS, every=5,
+	EpochCheckpoint(config.CHECKPOINTS, every=20,
 		startAt=args["start_epoch"]),
 	TrainingMonitor(config.MONITOR_PATH_PNG,
 		jsonPath=config.MONITOR_PATH_JSON,
