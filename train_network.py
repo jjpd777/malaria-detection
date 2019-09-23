@@ -53,7 +53,7 @@ else:
 
 # construct the set of callbacks
 callbacks = [
-	EpochCheckpoint(config.CHECKPOINTS, every=20,
+	EpochCheckpoint(config.CHECKPOINTS, every=50,
 		startAt=args["start_epoch"]),
 	TrainingMonitor(config.MONITOR_PATH_PNG,
 		jsonPath=config.MONITOR_PATH_JSON,
