@@ -30,15 +30,16 @@ testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
 print("[INFO] loading {}...".format(args["model"]))
 model = load_model(args["model"])
 totalTest= len(testGen.db["labels"])
+testGen(
 predIdxs = model.predict_generator(testGen.generator(),
 	steps=(totalTest // config.BATCH_SIZE)+1 )
  
 # for each image in the testing set we need to find the index of the
 # label with corresponding largest predicted probability
-predIdxs = np.argmax(predIdxs, axis=1)
+predIdxs = np.argmax(predIdxs,axis=1)
  
 # show a nicely formatted classification report
 labels = list(testGen.db["labels"])
 print(labels[:50])
 print(predIdxs[:50])
-print(classification_report(labels, predIdxs))	
+print(classification_report(testGen.db["labels"], predIdxs,target_names=["H","M"]))	
