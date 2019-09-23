@@ -11,7 +11,7 @@ samples = list(malaria) + list(non_malaria)
 
 
 SMALL_SIZE = 12
-BIG_SIZE = 20
+BIG_SIZE = 30
 
 plt.rc('axes', titlesize=BIG_SIZE)     # fontsize of the axes title
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
