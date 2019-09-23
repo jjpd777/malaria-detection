@@ -13,11 +13,17 @@ NUM_CLASSES = 2
 EPOCHS = 50
 BATCH_SIZE = 64
 LEARNING_RATE = 0.1
+SECOND_LR = 0.005
 MOMENTUM = 0
 NETWORK_REG = 0.0005
 DECAY = LEARNING_RATE/EPOCHS
 STAGES = (2,3,4)
 FILTERS = (128,64,128,256)
+
+FINE_TUNE_BOOL = False
+FCH1 = 0
+FCH2 = 0
+
 
 EXPERIMENT_NAME = "./output/experiment-3/"
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
@@ -36,10 +42,14 @@ def store_params():
         'epochs' : EPOCHS,
         'batch_size' : BATCH_SIZE,
         'learning_rate' : LEARNING_RATE,
-        'momentum' : LEARNING_RATE,
-        'decay' : DECAY,
-        'fc_layer_1' : FCH1,
-        'fc_layer_2' : FCH2
+        'second_lr': SECOND_LR,
+        'stages': STAGES,
+        'filters': FILTERS,
+        'momentum' : MOMENTUM,
+        'fine_tune' :{
+            'fine_tune_used': FINE_TUNE_BOOL,
+            'fc_layer_1' : FCH1,
+            'fc_layer_2' : FCH2}
         })
-    with open(PARAMS_FILE,'w') as write:
+    with open(PARAMS_FILE,'a') as write:
         json.dump(data,write)

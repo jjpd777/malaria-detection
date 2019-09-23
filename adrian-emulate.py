@@ -46,7 +46,7 @@ else:
 	# update the learning rate
 	print("[INFO] old learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
-	K.set_value(model.optimizer.lr, 1e-5)
+	K.set_value(model.optimizer.lr,config.SECOND_LR)
 	print("[INFO] new learning rate: {}".format(
 		K.get_value(model.optimizer.lr)))
 
@@ -54,8 +54,8 @@ else:
 callbacks = [
 	EpochCheckpoint(config.CHECKPOINTS, every=5,
 		startAt=args["start_epoch"]),
-	TrainingMonitor("output/resnet56_cifar10.png",
-		jsonPath="output/resnet56_cifar10.json",
+	TrainingMonitor(config.MONITOR_PATH_PNG,
+		jsonPath=config.MONITOR_PATH_JSON,
 		startAt=args["start_epoch"])]
 
 # train the network
