@@ -1,4 +1,4 @@
 [submodule "hdf5_generator"]
 	path = hdf5_generator
-	url = https://github.com/jjpd777/malaria-detection.git
+	url = https://github.com/jjpd777/hdf5_generator.git
 	branch = malaria-tool
