@@ -21,16 +21,12 @@ DECAY = LEARNING_RATE/EPOCHS
 STAGES = (2,3,4)
 FILTERS = (128,64,128,256)
 
-<<<<<<< HEAD
 FINE_TUNE_BOOL = False
 FCH1 = 0
 FCH2 = 0
 
 
-EXPERIMENT_NAME = "./output/experiment-3/"
-=======
 EXPERIMENT_NAME = "./output/experiment-1/"
->>>>>>> 291f1a288ed0ca46a0575432472b8fb0113277e1
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
 MONITOR_PATH_PNG = EXPERIMENT_NAME + "monitor.png"
 MONITOR_PATH_JSON = EXPERIMENT_NAME + "monitor.json"
