@@ -1,4 +1,5 @@
 import json
+import os
 IMAGES_PATH = "./clean_data/train/"
 TRAIN_HDF5 = "./clean_data/hdf5/train.hdf5"
 VAL_HDF5 = "./clean_data/hdf5/val.hdf5"
@@ -19,14 +20,20 @@ DECAY = LEARNING_RATE/EPOCHS
 STAGES = (2,3,4)
 FILTERS = (128,64,128,256)
 
-EXPERIMENT_NAME = "./output/experiment-3/"
+EXPERIMENT_NAME = "./output/experiment-1/"
 CHECKPOINTS = EXPERIMENT_NAME + "checkpoints/"
 MONITOR_PATH_PNG = EXPERIMENT_NAME + "monitor.png"
 MONITOR_PATH_JSON = EXPERIMENT_NAME + "monitor.json"
 PARAMS = "parameters.txt"
 PARAMS_FILE = EXPERIMENT_NAME + PARAMS
+LOG_NAME = EXPERIMENT_NAME + "console.log"
 MODEL_PATH = EXPERIMENT_NAME + "resnet.model"
 OUTPUT_PATH = EXPERIMENT_NAME
+
+def make_experiment():
+    os.mkdir(EXPERIMENT_NAME)
+    os.mkdir(CHECKPOINTS)
+    os.mknod(LOG_NAME)
 
 def store_params():
     data= {}
