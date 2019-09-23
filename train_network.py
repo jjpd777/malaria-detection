@@ -14,6 +14,7 @@ import keras.backend as K
 import numpy as np
 import argparse
 
+store_params()
 ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--model", type=str,
 	help="path to *specific* model checkpoint to load")
